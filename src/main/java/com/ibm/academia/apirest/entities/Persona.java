@@ -16,7 +16,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "personas")
+@Table(name = "personas", schema = "universidad")
 @Inheritance(strategy = InheritanceType.JOINED)
 //singletable hace que en las clases hijas no funcione el nullable
 //table per class crea tablas de clases hijas con los mismos valores de la superclase

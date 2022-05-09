@@ -3,6 +3,7 @@ package com.ibm.academia.apirest.entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 //import lombok.ToString;
 
 import javax.persistence.*;
@@ -14,9 +15,9 @@ import java.util.Set;
 @Setter
 @Getter
 @NoArgsConstructor
-//@ToString
+@ToString
 @Entity
-@Table(name = "carreras")
+@Table(name = "carreras", schema = "universidad")
 public class Carrera implements Serializable
 {
     @Id

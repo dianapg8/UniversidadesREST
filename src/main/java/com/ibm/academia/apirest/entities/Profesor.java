@@ -12,7 +12,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "profesores")
+@Table(name = "profesores", schema = "universidad")
 @PrimaryKeyJoinColumn(name = "persona_id")
 public class Profesor extends Persona
 {

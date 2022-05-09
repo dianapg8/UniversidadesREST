@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @NoArgsConstructor
 @Entity
-@Table(name = "alumnos")
+@Table(name = "alumnos", schema = "universidad")
 @PrimaryKeyJoinColumn(name = "persona_id")
 public class Alumno extends Persona
 {
