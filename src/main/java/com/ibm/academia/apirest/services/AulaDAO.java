@@ -1,14 +1,11 @@
-package com.ibm.academia.apirest.repositories;
+package com.ibm.academia.apirest.services;
 
 import com.ibm.academia.apirest.entities.Aula;
 import com.ibm.academia.apirest.enums.TipoPizarron;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
-public interface AulaRepository extends CrudRepository<Aula, Integer> {
+public interface AulaDAO extends GenericoDAO<Aula> {
 
     Iterable<Aula> findAulasByTipoPizarron(TipoPizarron tipoPizarron);
 

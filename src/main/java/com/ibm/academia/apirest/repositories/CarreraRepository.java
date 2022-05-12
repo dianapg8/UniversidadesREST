@@ -11,8 +11,8 @@ import java.util.Optional;
 @Repository
 public interface CarreraRepository extends CrudRepository<Carrera, Integer>
 {
-    //@Query("select c from Carrera c where c.cantidadAnios = ?1")
-    public Iterable<Carrera> findByCantidadAnios(Integer cantidadAnios);
+    //@Query("select c from Carrera c where c.cantidadAnios = ?1") //<- por JPQL
+    public Iterable<Carrera> findByCantidadAnios(Integer cantidadAnios); //<- por metodos
 
     //@Query("select c from Carrera c where c.nombre like ?1")
     public Iterable<Carrera> findCarrerasByNombreContains(String nombre);
@@ -22,4 +22,7 @@ public interface CarreraRepository extends CrudRepository<Carrera, Integer>
 
     //@Query("selec c from Carrera c where c.cantidadAnios > ?1")
     public Iterable<Carrera> findCarrerasByCantidadAniosAfter(Integer CantidadAnios);
+
+    @Query("select c from Carrera c join fetch c.profesores p where p.nombre = ?1 and p.apellido = ?2")
+    Iterable<Carrera> buscarCarrerasPorProfesorNombreYApellido(String nombre, String apellido);
 }

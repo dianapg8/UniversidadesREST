@@ -1,9 +1,13 @@
 package com.ibm.academia.apirest.entities;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
+@Setter
+@Getter
 @NoArgsConstructor
 @Entity
 @Table(name = "alumnos", schema = "universidad")

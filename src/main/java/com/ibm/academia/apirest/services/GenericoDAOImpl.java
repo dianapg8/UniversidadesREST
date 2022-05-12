@@ -1,13 +1,14 @@
 package com.ibm.academia.apirest.services;
 
+import com.ibm.academia.apirest.entities.Carrera;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-public class GenericoDAOImpl <E,R extends CrudRepository<E, Integer>> implements GenericoDAO<E>
+public abstract class GenericoDAOImpl <E,R extends CrudRepository<E, Integer>> implements GenericoDAO<E>
 {
-    private final R repository;
+    protected final R repository;
 
     public GenericoDAOImpl(R repository)
     {
@@ -37,4 +38,5 @@ public class GenericoDAOImpl <E,R extends CrudRepository<E, Integer>> implements
     public void eliminarPorId(Integer Id) {
         repository.deleteById(Id);
     }
+
 }
