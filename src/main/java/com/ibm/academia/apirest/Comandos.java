@@ -17,14 +17,14 @@ import java.util.Optional;
 @Component
 public class Comandos implements CommandLineRunner
 {
-    @Autowired
+    /*@Autowired
     private CarreraDAO carreraDAO;
 
     @Autowired
     private PersonaDAO personaDAO;
 
     @Autowired
-    private AlumnoDAO alumnoDAO;
+    private AlumnoDAO alumnoDAO;*/
 
     @Override
     public void run(String... args) throws Exception

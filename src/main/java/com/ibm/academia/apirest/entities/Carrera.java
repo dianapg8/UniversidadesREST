@@ -1,5 +1,6 @@
 package com.ibm.academia.apirest.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,9 +40,11 @@ public class Carrera implements Serializable
     private Date fechaModificacion;
 
     @OneToMany(mappedBy = "carrera", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"carrera"})
     private Set<Alumno> alumnos;
 
     @ManyToMany(mappedBy = "carreras", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"carreras"})
     private Set<Profesor> profesores;
 
     public Carrera(Integer id, String nombre, Integer cantidadMaterias, Integer cantidadAnios)

@@ -34,7 +34,7 @@ public class Aula implements Serializable
 
     @Column(name = "tipo_pizarron")
     @Enumerated(EnumType.STRING)
-    private TipoPizarron pizarron;
+    private TipoPizarron tipoPizarron;
 
     @Column(name = "fecha_alta")
     private Date fechaAlta;
@@ -52,7 +52,7 @@ public class Aula implements Serializable
         this.numeroAula = numeroAula;
         this.medidas = medidas;
         this.cantidadPupitres = cantidadPupitres;
-        this.pizarron = pizarron;
+        this.tipoPizarron = pizarron;
     }
 
     @Override

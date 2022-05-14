@@ -4,6 +4,7 @@ import com.ibm.academia.apirest.entities.Aula;
 import com.ibm.academia.apirest.enums.TipoPizarron;
 import com.ibm.academia.apirest.repositories.AulaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +15,8 @@ import java.util.Optional;
 public class AulaDAOImpl extends GenericoDAOImpl<Aula, AulaRepository> implements AulaDAO {
 
     @Autowired
-    public AulaDAOImpl(AulaRepository repositorio) {
-        super(repositorio);
+    public AulaDAOImpl(AulaRepository repository) {
+        super(repository);
     }
 
     @Override
