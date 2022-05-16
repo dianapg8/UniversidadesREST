@@ -18,7 +18,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "personas", schema = "universidad")
+@Table(name = "personas")
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonTypeInfo(
         use=JsonTypeInfo.Id.NAME,
