@@ -1,5 +1,6 @@
 package com.ibm.academia.apirest.services;
 
+import com.ibm.academia.apirest.entities.Empleado;
 import com.ibm.academia.apirest.entities.Persona;
 import com.ibm.academia.apirest.enums.TipoEmpleado;
 import com.ibm.academia.apirest.repositories.EmpleadoRepository;
@@ -21,5 +22,17 @@ public class EmpleadoDAOImpl extends PersonaDAOImpl implements EmpleadoDAO {
     @Transactional(readOnly = true)
     public Iterable<Persona> findEmpleadoByTipoEmpleado(TipoEmpleado tipoEmpleado) {
         return ((EmpleadoRepository) repository).findEmpleadoByTipoEmpleado(tipoEmpleado);
+    }
+
+    @Override
+    @Transactional
+    public Persona actualizar(Persona empleadoEncontrado, Persona empleado) {
+        Persona empleadoActualizado = null;
+        empleadoEncontrado.setNombre(empleado.getNombre());
+        empleadoEncontrado.setApellido(empleado.getApellido());
+        empleadoEncontrado.setDireccion(empleado.getDireccion());
+        ((Empleado)empleadoEncontrado).setSueldo(((Empleado)empleado).getSueldo());
+        empleadoActualizado=repository.save(empleadoEncontrado);
+        return empleadoActualizado;
     }
 }

@@ -26,4 +26,16 @@ public class PabellonDAOImpl extends GenericoDAOImpl<Pabellon, PabellonRepositor
     public Iterable<Pabellon> findPabellonesByNombre(String nombre) {
         return repository.findPabellonesByNombre(nombre);
     }
+
+    @Override
+    @Transactional
+    public Pabellon actualizar(Pabellon pabellonEncontrado, Pabellon pabellon) {
+        Pabellon pabellonActualizado = null;
+        pabellonEncontrado.setNombre(pabellon.getNombre());
+        pabellonEncontrado.setAulas(pabellon.getAulas());
+        pabellonEncontrado.setDireccion(pabellon.getDireccion());
+        pabellonActualizado=repository.save(pabellonEncontrado);
+
+        return pabellonActualizado;
+    }
 }

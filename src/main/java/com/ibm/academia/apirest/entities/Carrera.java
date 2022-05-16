@@ -1,13 +1,14 @@
 package com.ibm.academia.apirest.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 //import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -24,12 +25,17 @@ public class Carrera implements Serializable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull(message = "El nombre no debe ser nulo")
+    @NotEmpty(message = "El nombre no debe estar vacio")
+    @Size(min = 5, max = 80)
     @Column(name = "nombre", unique = true, nullable = false, length = 80)
     private String nombre;
 
+    @Positive(message = "Cantidad de materias debe ser mayor a cero")
     @Column(name = "cantidad_materias")
     private Integer cantidadMaterias;
 
+    @Positive(message = "Cantidad de años debe ser mayor a cero")
     @Column(name = "cantidad_anios")
     private Integer cantidadAnios;
 

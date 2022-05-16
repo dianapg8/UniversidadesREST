@@ -1,5 +1,7 @@
 package com.ibm.academia.apirest.entities;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +20,16 @@ import java.util.Objects;
 @Entity
 @Table(name = "personas", schema = "universidad")
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonTypeInfo(
+        use=JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "tipo"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Alumno.class,name = "alumno"),
+        @JsonSubTypes.Type(value = Profesor.class,name = "profesor"),
+        @JsonSubTypes.Type(value = Empleado.class,name = "empleado")
+})
 //singletable hace que en las clases hijas no funcione el nullable
 //table per class crea tablas de clases hijas con los mismos valores de la superclase
 public abstract class Persona implements Serializable

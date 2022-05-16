@@ -1,5 +1,6 @@
 package com.ibm.academia.apirest.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +17,7 @@ public class Alumno extends Persona
 {
     @ManyToOne(optional = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "carrera_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "alumnos"})
     private Carrera carrera;
 
     public Alumno(Integer id, String nombre, String apellido, String dni, Direccion direccion)

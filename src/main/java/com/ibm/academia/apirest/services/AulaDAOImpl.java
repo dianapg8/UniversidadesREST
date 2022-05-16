@@ -9,6 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -35,5 +36,15 @@ public class AulaDAOImpl extends GenericoDAOImpl<Aula, AulaRepository> implement
     @Transactional(readOnly = true)
     public Optional<Aula> findAulaByNumeroAula(Integer numeroAula) {
         return repository.findAulaByNumeroAula(numeroAula);
+    }
+
+    @Override
+    @Transactional
+    public Aula actualizar(Aula aulaEncontrada, Aula aula) {
+        Aula aulaActualizada = null;
+        aulaEncontrada.setNumeroAula(aula.getNumeroAula());
+        aulaEncontrada.setCantidadPupitres(aula.getCantidadPupitres());
+        aulaActualizada = repository.save(aulaEncontrada);
+        return aulaActualizada;
     }
 }

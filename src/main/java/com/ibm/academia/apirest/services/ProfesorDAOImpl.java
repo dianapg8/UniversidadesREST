@@ -1,6 +1,7 @@
 package com.ibm.academia.apirest.services;
 
 import com.ibm.academia.apirest.entities.Persona;
+import com.ibm.academia.apirest.entities.Profesor;
 import com.ibm.academia.apirest.repositories.PersonaRepository;
 import com.ibm.academia.apirest.repositories.ProfesorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,17 @@ public class ProfesorDAOImpl extends PersonaDAOImpl implements ProfesorDAO {
     @Transactional(readOnly = true)
     public Iterable<Persona> findProfesoresByCarrera(String nombre) {
         return ((ProfesorRepository) repository).findProfesoresByCarrera(nombre);
+    }
+
+    @Override
+    @Transactional
+    public Persona actualizar(Persona profesorEncontrado, Profesor profesor) {
+        Persona profesorActualizado = null;
+        profesorEncontrado.setNombre(profesor.getNombre());
+        profesorEncontrado.setApellido(profesor.getApellido());
+        profesorEncontrado.setDireccion(profesor.getDireccion());
+        ((Profesor)profesorEncontrado).setSueldo(profesor.getSueldo());
+        profesorActualizado=repository.save(profesorEncontrado);
+        return profesorActualizado;
     }
 }

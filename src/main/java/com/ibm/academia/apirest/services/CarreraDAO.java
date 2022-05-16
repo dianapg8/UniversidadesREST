@@ -5,9 +5,8 @@ import com.ibm.academia.apirest.entities.Carrera;
 public interface CarreraDAO extends GenericoDAO<Carrera>
 {
     Iterable<Carrera> findCarrerasByNombreContains(String nombre);
-
     Iterable<Carrera> findCarrerasByNombreContainsIgnoreCase(String nombre);
-
     Iterable<Carrera> findCarrerasByCantidadAniosAfter(Integer cantidadAnios);
+    public Carrera actualizar(Carrera carreraEncontrada, Carrera carrera);
 
 }
