@@ -1,6 +1,6 @@
 package com.ibm.academia.apirest.repositories;
 
-import com.ibm.academia.apirest.entities.Persona;
+import com.ibm.academia.apirest.models.entities.Persona;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;

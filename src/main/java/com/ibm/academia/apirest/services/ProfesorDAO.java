@@ -1,7 +1,7 @@
 package com.ibm.academia.apirest.services;
 
-import com.ibm.academia.apirest.entities.Persona;
-import com.ibm.academia.apirest.entities.Profesor;
+import com.ibm.academia.apirest.models.entities.Persona;
+import com.ibm.academia.apirest.models.entities.Profesor;
 
 public interface ProfesorDAO extends PersonaDAO
 {

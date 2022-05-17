@@ -1,7 +1,10 @@
 package com.ibm.academia.apirest.controllers;
 
-import com.ibm.academia.apirest.entities.Persona;
-import com.ibm.academia.apirest.entities.Profesor;
+import com.ibm.academia.apirest.exceptions.BadRequestException;
+import com.ibm.academia.apirest.mapper.ProfesorMapper;
+import com.ibm.academia.apirest.models.dto.ProfesorDTO;
+import com.ibm.academia.apirest.models.entities.Persona;
+import com.ibm.academia.apirest.models.entities.Profesor;
 import com.ibm.academia.apirest.exceptions.NotFoundException;
 import com.ibm.academia.apirest.services.CarreraDAO;
 import com.ibm.academia.apirest.services.PersonaDAO;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/profesor")
@@ -82,8 +86,19 @@ public class ProfesorController
 
         profesorDAO.eliminarPorId(oProfesor.get().getId());
         return new ResponseEntity<String>("Profesor Id: " + profesorId + " se elimino satisfactoriamente", HttpStatus.ACCEPTED);
-
     }
 
+    @GetMapping("/lista/dto")
+    public ResponseEntity<?> obtenerProfesoresDto(){
+        List<Persona> profesores = (List<Persona>) profesorDAO.buscarTodos();
+        if(profesores.isEmpty())
+            throw new BadRequestException("No existen profesores");
+        List<ProfesorDTO> profesoresDto = profesores.
+                stream()
+                .map(ProfesorMapper::mapperProfesor)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<List<ProfesorDTO>>(profesoresDto,HttpStatus.OK);
+    }
 
 }

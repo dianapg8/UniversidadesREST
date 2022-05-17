@@ -1,12 +1,9 @@
 package com.ibm.academia.apirest.repositories;
 
-import com.ibm.academia.apirest.entities.Carrera;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.ibm.academia.apirest.models.entities.Carrera;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 @Repository
 public interface CarreraRepository extends CrudRepository<Carrera, Integer>

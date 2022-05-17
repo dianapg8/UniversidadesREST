@@ -1,7 +1,11 @@
 package com.ibm.academia.apirest.controllers;
 
-import com.ibm.academia.apirest.entities.Carrera;
-import com.ibm.academia.apirest.entities.Persona;
+import com.ibm.academia.apirest.exceptions.BadRequestException;
+import com.ibm.academia.apirest.mapper.AlumnoMapper;
+import com.ibm.academia.apirest.models.dto.AlumnoDTO;
+import com.ibm.academia.apirest.models.entities.Alumno;
+import com.ibm.academia.apirest.models.entities.Carrera;
+import com.ibm.academia.apirest.models.entities.Persona;
 import com.ibm.academia.apirest.exceptions.NotFoundException;
 import com.ibm.academia.apirest.services.AlumnoDAO;
 import com.ibm.academia.apirest.services.CarreraDAO;
@@ -14,9 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -121,6 +123,23 @@ public class AlumnoController
         }
         Persona alumno = ((AlumnoDAO)alumnoDAO).asociarCarreraAlumno(oAlumno.get(),oCarrera.get());
         return new ResponseEntity<Persona>(alumno,HttpStatus.OK);
+    }
+
+    @GetMapping("/alumnos/dto")
+    public ResponseEntity<?> obtenerAlumnosDto(){
+        List<Persona> alumnos = (List<Persona>) alumnoDAO.buscarTodos();
+
+        if(alumnos.isEmpty())
+            throw new BadRequestException("No existen alumnos");
+
+        List<AlumnoDTO> alumnosDto = alumnos
+                .stream()
+                .map(AlumnoMapper::mapperAlumno)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<List<AlumnoDTO>>(alumnosDto,HttpStatus.OK);
+
+
     }
 
 }

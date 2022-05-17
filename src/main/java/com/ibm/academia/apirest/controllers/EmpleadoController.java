@@ -1,7 +1,10 @@
 package com.ibm.academia.apirest.controllers;
 
-import com.ibm.academia.apirest.entities.Empleado;
-import com.ibm.academia.apirest.entities.Persona;
+import com.ibm.academia.apirest.exceptions.BadRequestException;
+import com.ibm.academia.apirest.mapper.EmpleadoMapper;
+import com.ibm.academia.apirest.models.dto.EmpleadoDTO;
+import com.ibm.academia.apirest.models.entities.Empleado;
+import com.ibm.academia.apirest.models.entities.Persona;
 import com.ibm.academia.apirest.exceptions.NotFoundException;
 import com.ibm.academia.apirest.services.EmpleadoDAO;
 import com.ibm.academia.apirest.services.PersonaDAO;
@@ -14,8 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/empleado")
@@ -78,5 +81,21 @@ public class EmpleadoController
         empleadoDAO.eliminarPorId(oEmpleado.get().getId());
 
         return new ResponseEntity<String>("Empleado Id: " + empleadoId + " se elimino satisfactoriamente", HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/lista/dto")
+    public ResponseEntity<?> obtenerEmpleadosDto()
+    {
+        List<Persona> empleados = (List<Persona>) empleadoDAO.buscarTodos();
+        if(empleados.isEmpty())
+            throw new BadRequestException("No existen empleados");
+        List<EmpleadoDTO> empleadosDto = empleados.
+                stream()
+                .map(EmpleadoMapper::mapperEmpleado)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<List<EmpleadoDTO>>(empleadosDto,HttpStatus.OK);
+
+
     }
 }

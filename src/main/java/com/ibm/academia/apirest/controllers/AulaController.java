@@ -1,6 +1,9 @@
 package com.ibm.academia.apirest.controllers;
 
-import com.ibm.academia.apirest.entities.Aula;
+import com.ibm.academia.apirest.exceptions.BadRequestException;
+import com.ibm.academia.apirest.mapper.AulaMapper;
+import com.ibm.academia.apirest.models.dto.AulaDTO;
+import com.ibm.academia.apirest.models.entities.Aula;
 import com.ibm.academia.apirest.exceptions.NotFoundException;
 import com.ibm.academia.apirest.services.AulaDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/aula")
@@ -76,5 +80,22 @@ public class AulaController
         aulaDAO.eliminarPorId(oAula.get().getId());
 
         return new ResponseEntity<String>("Aula Id: " + aulaId + " se elimino satisfactoriamente", HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/lista/dto")
+    public ResponseEntity<?> obtenerAulasDto()
+    {
+        List<Aula> aulas = (List<Aula>) aulaDAO.buscarTodos();
+
+        if(aulas.isEmpty())
+            throw new BadRequestException("No existen aulas");
+        List<AulaDTO> aulasDto = aulas.
+                stream()
+                .map(AulaMapper::mapperAula)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<List<AulaDTO>>(aulasDto,HttpStatus.OK);
+
+
     }
 }

@@ -1,7 +1,10 @@
 package com.ibm.academia.apirest.controllers;
 
-import com.ibm.academia.apirest.entities.Aula;
-import com.ibm.academia.apirest.entities.Pabellon;
+import com.ibm.academia.apirest.exceptions.BadRequestException;
+import com.ibm.academia.apirest.mapper.PabellonMapper;
+import com.ibm.academia.apirest.models.dto.PabellonDTO;
+import com.ibm.academia.apirest.models.entities.Aula;
+import com.ibm.academia.apirest.models.entities.Pabellon;
 import com.ibm.academia.apirest.exceptions.NotFoundException;
 import com.ibm.academia.apirest.services.AulaDAO;
 import com.ibm.academia.apirest.services.PabellonDAO;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/pabellon")
@@ -82,6 +86,22 @@ public class PabellonController
         pabellonDAO.eliminarPorId(oPabellon.get().getId());
 
         return new ResponseEntity<String>("Pabellon Id: " + pabellonId + " se elimino satisfactoriamente", HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/lista/dto")
+    public ResponseEntity<?> obtenerPabellonesDto()
+    {
+        List<Pabellon> pabellones = (List<Pabellon>) pabellonDAO.buscarTodos();
+        if(pabellones.isEmpty())
+            throw new BadRequestException("No existen pabellones");
+        List<PabellonDTO> pabellonesDto = pabellones.
+                stream()
+                .map(PabellonMapper::mapperPabellon)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<List<PabellonDTO>>(pabellonesDto,HttpStatus.OK);
+
+
     }
 
 }

@@ -1,18 +1,7 @@
-package com.ibm.academia.apirest;
+package com.ibm.academia.apirest.utils;
 
-import com.ibm.academia.apirest.entities.Alumno;
-import com.ibm.academia.apirest.entities.Carrera;
-import com.ibm.academia.apirest.entities.Direccion;
-import com.ibm.academia.apirest.entities.Persona;
-import com.ibm.academia.apirest.services.AlumnoDAO;
-import com.ibm.academia.apirest.services.CarreraDAO;
-import com.ibm.academia.apirest.services.PersonaDAO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Optional;
 
 @Component
 public class Comandos implements CommandLineRunner
